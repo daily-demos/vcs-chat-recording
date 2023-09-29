@@ -1,0 +1,21 @@
+{
+    "name": "daily-vcs-chat-recording",
+    "version": "1.0.0",
+    "description": "A demo showing how to record Daily video with chat and emoji reactions embedded",
+    "scripts": {
+        "dev": "http-server src/ -c-1 --cors='*'"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/daily-demos/vcs-chat-recording.git"
+    },
+    "author": "",
+    "license": "BSD-2-Clause",
+    "bugs": {
+        "url": "https://github.com/daily-demos/vcs-chat-recording/issues"
+    },
+    "homepage": "https://github.com/daily-demos/vcs-chat-recording#readme",
+    "devDependencies": {
+        "http-server": "^14.1.1"
+    }
+}
