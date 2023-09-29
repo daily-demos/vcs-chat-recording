@@ -57,15 +57,10 @@ function setupCallObject() {
       removeAllParticipantEles();
     })
     .on('recording-started', () => {
-      const isRecordingOwner =
-        !!callObject.participants().local.userData?.isRecordingOwner;
-      console.log('isRecOwner: ', isRecordingOwner);
-      updateRecordBtn(true, isRecordingOwner);
+      updateRecordBtn(true);
     })
     .on('recording-stopped', () => {
-      const isRecordingOwner =
-        !!callObject.participants().local.userData?.isRecordingOwner;
-      updateRecordBtn(false, isRecordingOwner);
+      updateRecordBtn(false);
     })
     .on('participant-updated', (e) => {
       // When the local participant is updated,
