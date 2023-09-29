@@ -3,7 +3,9 @@
     "version": "1.0.0",
     "description": "A demo showing how to record Daily video with chat and emoji reactions embedded",
     "scripts": {
-        "dev": "http-server src/ -c-1 --cors='*'"
+        "dev": "http-server src/ -c-1 --cors='*'",
+        "lint": "eslint './**/*.js'",
+        "lintFix": "eslint './**/*.js' --fix"
     },
     "repository": {
         "type": "git",
@@ -16,6 +18,11 @@
     },
     "homepage": "https://github.com/daily-demos/vcs-chat-recording#readme",
     "devDependencies": {
+        "eslint": "^8.17.0",
+        "eslint-config-airbnb-base": "^15.0.0",
+        "eslint-config-prettier": "^8.5.0",
+        "eslint-plugin-import": "^2.26.0",
+        "eslint-plugin-prettier": "^5.0.0",
         "http-server": "^14.1.1"
     }
 }

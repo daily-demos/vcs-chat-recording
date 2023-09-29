@@ -1,8 +1,8 @@
-# Daily Chat + Emoji recording with VCS
+# Daily chat + reaction recording with VCS
 
 This demo shows developers how they can embed chat and emoji reaction components into their recording of a Daily-powered video call.
 
-![Recording still featuring chat and emojis](screenshot.png)
+![Recording still featuring chat and reactions](screenshot.png)
 
 ## Running the demo locally
 

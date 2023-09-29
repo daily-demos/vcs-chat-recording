@@ -1,33 +1,28 @@
 import {
+  addParticipantEle,
   disableControls,
   enableControls,
   enableJoinForm,
-  setupChatForm,
-  setupEmojiReactions,
-  setupJoinForm,
-  setupRecordToggle,
-  updateCamLabel,
-  updateMicLabel,
-  updateRecordBtn,
-} from './call/controls.js';
-import {
-  addChatMsg,
-  addParticipantEle,
   hideCallContainer,
   removeAllParticipantEles,
   removeParticipantEle,
+  setupJoinForm,
   showCallContainer,
-  showReaction,
+  updateCamLabel,
   updateMedia,
-} from './call/dom.js';
+  updateMicLabel,
+} from './call/call.js';
+import { addChatMsg, setupChatForm, showReaction } from './call/chat.js';
+import {
+  setupRecordToggle,
+  updateRecordBtn,
+  updateRecording,
+} from './call/recording.js';
 
 window.addEventListener('DOMContentLoaded', () => {
   const callObject = setupCallObject();
   setupJoinForm(callObject);
 });
-
-let visibleMessages = [];
-let toastKey = 0;
 
 /**
  * setupCallObject() creates a new instance of Daily's call object
@@ -51,7 +46,6 @@ function setupCallObject() {
       showCallContainer();
       enableControls(callObject);
       setupChatForm(callObject, updateRecording);
-      setupEmojiReactions(callObject, updateRecording)
       setupRecordToggle(callObject);
     })
     .on('left-meeting', () => {
@@ -62,13 +56,16 @@ function setupCallObject() {
       hideCallContainer();
       removeAllParticipantEles();
     })
-    .on('recording-started', (e) => {
-      const isRecordingOwner = !!callObject.participants().local.userData?.isRecordingOwner;
-      updateRecordBtn(true, isRecordingOwner)
+    .on('recording-started', () => {
+      const isRecordingOwner =
+        !!callObject.participants().local.userData?.isRecordingOwner;
+      console.log('isRecOwner: ', isRecordingOwner);
+      updateRecordBtn(true, isRecordingOwner);
     })
-    .on('recording-stopped', (e) => {
-      const isRecordingOwner = !!callObject.participants().local.userData?.isRecordingOwner;
-      updateRecordBtn(false, isRecordingOwner)
+    .on('recording-stopped', () => {
+      const isRecordingOwner =
+        !!callObject.participants().local.userData?.isRecordingOwner;
+      updateRecordBtn(false, isRecordingOwner);
     })
     .on('participant-updated', (e) => {
       // When the local participant is updated,
@@ -104,96 +101,30 @@ function setupCallObject() {
       console.error('A nonfatal error occurred', e);
     })
     .on('app-message', (e) => {
-      const data = e.data;
-      console.log("got app message:", e);
-      if (data.kind === "chat") {
-        const msg = data.msg;
+      const { data } = e;
+      console.log('got app message:', e);
+      if (data.kind === 'chat') {
+        const { msg } = data;
         const senderID = e.fromId;
         const sender = callObject.participants()[senderID];
-        const name = sender?.user_name || "Guest";
+        const name = sender?.user_name || 'Guest';
         addChatMsg(name, msg);
         updateRecording(callObject, {
-          kind: "chat",
-          name: name,
-          msg: msg,
-        })
+          kind: 'chat',
+          name,
+          msg,
+        });
         return;
-      } 
-      if (data.kind === "emoji") {
-        const emoji = data.emoji;
+      }
+      if (data.kind === 'emoji') {
+        const { emoji } = data;
         showReaction(emoji);
         updateRecording(callObject, {
-          kind: "emoji",
-          emoji: emoji,
-        })
+          kind: 'emoji',
+          emoji,
+        });
       }
     });
 
   return callObject;
-}
-
-function updateRecording(callObject, data) {
-  const lp = callObject.participants().local;
-
-  if (!lp?.userData?.isRecordingOwner) return;
-  console.log("updating recording: ", data);
-  if (data.kind === "chat") {
-    const chatLine = `${data.name}: ${data.msg}`;
-    visibleMessages.push(chatLine);
-    const maxDisplayed = 5;
-    while (visibleMessages.length > maxDisplayed) {
-      visibleMessages.shift();
-    };
-      callObject.updateRecording({
-        layout: {
-          preset: "custom",
-          composition_params: {
-            "showTextOverlay": true,
-            "text.align_horizontal": "right",
-            "text.align_vertical": "bottom",
-            "text.offset_x_gu": -1,
-            "text.offset_y_gu": 0.5,
-            "text.fontSize_gu": 1.2,
-            "text.fontFamily": "Exo",
-            "text.color": "rgba(255, 255, 255, 0.95)",
-            "videoSettings.showParticipantLabels": false,
-            "text.content": visibleMessages.join("\r\n"),
-          }
-        }
-      });
-      return;
-  }
-  if (data.kind === "emoji") {
-    const emoji = data.emoji;
-    let assetName = "";
-    // Get asset name
-    switch (emoji) {
-      case '❤️': 
-        assetName = "reactions/heart"
-        break;
-      case '👍': 
-        assetName = "reactions/up"
-        break;
-      case '👎': 
-        assetName = "reactions/down"
-        break;
-      case '🎃': 
-        assetName = "reactions/boo"
-        break;
-    }
-
-    toastKey += 1;
-    callObject.updateRecording({
-      layout: {
-        preset: "custom",
-        composition_params: {
-          "toast.duration_secs": 2,
-          "toast.key": toastKey,
-          "toast.icon.assetName": assetName,
-          "toast.showIcon": true,
-          "toast.color": "rgba(0, 0, 0, 0)",
-        }
-      }
-    });
-  }
 }
