@@ -31,7 +31,6 @@ window.addEventListener('DOMContentLoaded', () => {
 function setupCallObject() {
   const callObject = window.DailyIframe.createCallObject();
 
-
   // Set up relevant event handlers
   callObject
     .on('joined-meeting', (e) => {

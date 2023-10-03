@@ -3,21 +3,21 @@
  * and emoji reaction functionality.
  */
 
-import { getCallContainerEle} from './call.js';
+import { getCallContainerEle } from './call.js';
 import rand from './util.js';
 
 /**
  * Sets up the in-call chat form, including relevant handlers.s
- * @param {DailyCall} callObject 
- * @param {func(DailyCall, {})} updateRecording 
+ * @param {DailyCall} callObject
+ * @param {func(DailyCall, {})} updateRecording
  */
 export function setupChatForm(callObject, updateRecording) {
   setupEmojiReactions(callObject, updateRecording);
 
   // Retrieve chat form and chat input element
   const chatForm = getChatForm();
-  const chatInput = chatForm.getElementsByTagName('textarea')[0]
-  
+  const chatInput = chatForm.getElementsByTagName('textarea')[0];
+
   // Set up form submission handler
   chatForm.onsubmit = (ev) => {
     ev.preventDefault();
@@ -48,17 +48,17 @@ export function setupChatForm(callObject, updateRecording) {
 
   // Let participant submit a chat message with "Enter" key
   // This will invoke the "onsubmit" handler above
-  chatInput.addEventListener('keydown', function(ev) {
-    if (ev.key == "Enter") {
-      chatForm.dispatchEvent(new Event('submit'))
+  chatInput.addEventListener('keydown', (ev) => {
+    if (ev.key === 'Enter') {
+      chatForm.dispatchEvent(new Event('submit'));
     }
   });
 }
 
 /**
  * Adds a chat message to the message box in the DOM
- * @param {string} name 
- * @param {string} msg 
+ * @param {string} name
+ * @param {string} msg
  */
 export function addChatMsg(name, msg) {
   const messagesEle = getMessagesEle();
@@ -78,7 +78,7 @@ export function addChatMsg(name, msg) {
 
 /**
  * Shows a reaction emoji in the dom
- * @param {string} emoji 
+ * @param {string} emoji
  */
 export function showReaction(emoji) {
   const ele = document.createElement('div');
@@ -107,11 +107,10 @@ export function showReaction(emoji) {
 
 /**
  * Sets up emoji reaction button handlers
- * @param {DailyCall} callObject 
- * @param {func(DailyCall, {})} updateRecording 
+ * @param {DailyCall} callObject
+ * @param {func(DailyCall, {})} updateRecording
  */
 function setupEmojiReactions(callObject, updateRecording) {
-
   // Retrieve all reaction buttons
   const reactionBtns = [
     document.getElementById('thumbsup'),

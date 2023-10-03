@@ -2,12 +2,11 @@
  * All primary call operations are defined in this file.
  */
 
-
 const hiddenClassName = 'hidden';
 
 /**
  * Configures the join form
- * @param {DailyCall} callObject 
+ * @param {DailyCall} callObject
  */
 export function setupJoinForm(callObject) {
   const joinForm = getJoinForm();
@@ -21,9 +20,9 @@ export function setupJoinForm(callObject) {
     const inputs = joinForm.getElementsByTagName('input');
     const roomURLInput = inputs[0];
     const nameInput = inputs[1];
- 
+
     try {
-      callObject.join({ 
+      callObject.join({
         url: roomURLInput.value,
         userName: nameInput.value,
       });
@@ -44,12 +43,14 @@ export function showLobby() {
   const joinForm = getJoinForm();
   const btn = joinForm.getElementsByTagName('button')[0];
   btn.disabled = false;
+
+  const lobby = getLobbyEle();
   lobby.classList.remove(hiddenClassName);
 }
 
 /**
  * Configures the microphone toggle button
- * @param {DailyCall} callObject 
+ * @param {DailyCall} callObject
  */
 export function setupMicToggle(callObject) {
   const btn = getMicBtn();
@@ -61,7 +62,7 @@ export function setupMicToggle(callObject) {
 
 /**
  * Updates the mic button label to reflect accurate mic state
- * @param {bool} isOn 
+ * @param {bool} isOn
  */
 export function updateMicLabel(isOn) {
   const btn = getMicBtn();
@@ -74,7 +75,7 @@ export function updateMicLabel(isOn) {
 
 /**
  * Configures the camera toggle button
- * @param {DailyCall} callObject 
+ * @param {DailyCall} callObject
  */
 export function setupCamToggle(callObject) {
   const btn = getCamBtn();
@@ -86,7 +87,7 @@ export function setupCamToggle(callObject) {
 
 /**
  * Updates the cam button to reflect accurate cam state
- * @param {bool} isOn 
+ * @param {bool} isOn
  */
 export function updateCamLabel(isOn) {
   const btn = getCamBtn();
@@ -99,7 +100,7 @@ export function updateCamLabel(isOn) {
 
 /**
  * Sets up the Leave button
- * @param {DailyCall} callObject 
+ * @param {DailyCall} callObject
  */
 export function setupLeave(callObject) {
   const btn = getLeaveBtn();
@@ -110,7 +111,7 @@ export function setupLeave(callObject) {
 
 /**
  * Enables in-call controls
- * @param {DailyCall} callObject 
+ * @param {DailyCall} callObject
  */
 export function enableControls(callObject) {
   setupMicToggle(callObject);
@@ -138,8 +139,8 @@ export function disableCallControls() {
 
 /**
  * Updates a participant's media elements
- * @param {DailyParticipant} participant 
- * @returns 
+ * @param {DailyParticipant} participant
+ * @returns
  */
 export function updateMedia(participant) {
   const participantEle = getParticipantEle(participant.session_id);
@@ -165,10 +166,10 @@ function tryUpdateAudio(newTrack, parentEle) {
 /**
  * Updates the participant's media element with the
  * given track if needed.
- * @param {MediaStreamTrack} newTrack 
- * @param {HTMLElement} parentEle 
- * @param {"video" | "audio"} trackKind 
- * @returns 
+ * @param {MediaStreamTrack} newTrack
+ * @param {HTMLElement} parentEle
+ * @param {"video" | "audio"} trackKind
+ * @returns
  */
 function maybeUpdateTrack(newTrack, parentEle, trackKind) {
   const mediaEles = parentEle.getElementsByTagName(trackKind);
@@ -191,8 +192,8 @@ function maybeUpdateTrack(newTrack, parentEle, trackKind) {
 
 /**
  * Retrieves a participant's playable tracks
- * @param {DailyParticipant} participant 
- * @returns 
+ * @param {DailyParticipant} participant
+ * @returns
  */
 function getParticipantTracks(participant) {
   const mediaTracks = {
@@ -225,8 +226,8 @@ function getParticipantTracks(participant) {
 
 /**
  * Adds a participant to the DOM
- * @param {DailyParticipant} participant 
- * @returns 
+ * @param {DailyParticipant} participant
+ * @returns
  */
 export function addParticipantEle(participant) {
   // Retrieve parent to which the participant will be attached.
@@ -257,7 +258,7 @@ export function addParticipantEle(participant) {
 
 /**
  * Removes a participant from the DOM
- * @param {string} sessionID 
+ * @param {string} sessionID
  */
 export function removeParticipantEle(sessionID) {
   const participantEle = getParticipantEle(sessionID);
@@ -281,8 +282,8 @@ export function removeAllParticipantEles() {
 
 /**
  * Retrievecs a participant element, if one exists.
- * @param {string}} sessionID 
- * @returns 
+ * @param {string}} sessionID
+ * @returns
  */
 export function getParticipantEle(sessionID) {
   return document.getElementById(getParticipantEleID(sessionID));
@@ -311,7 +312,7 @@ export function getCallContainerEle() {
 
 /**
  * Cleanly removes all media within the given parent.
- * @param {HTMLElement} parentEle 
+ * @param {HTMLElement} parentEle
  */
 function removeMedia(parentEle) {
   const videoTag = parentEle.getElementsByTagName('video')[0];

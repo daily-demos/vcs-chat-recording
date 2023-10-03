@@ -5,7 +5,7 @@
  * and updating VCS text and image overlays for chat and emojis.
  */
 
-import rand from "./util.js";
+import rand from './util.js';
 
 const visibleMessages = [];
 let reactionTimeout;
@@ -20,7 +20,7 @@ export const recordingState = {
 
 /**
  * Sets up the Record button to toggle recording on/off.
- * @param {DailyCall} callObject 
+ * @param {DailyCall} callObject
  */
 export function setupRecordToggle(callObject) {
   const btn = getRecordBtn();
@@ -74,11 +74,11 @@ export function updateRecordBtn(recordingInProgress) {
   if (!recordingInProgress) {
     btn.innerText = 'Start Recording';
     btn.disabled = false;
-    btn.className = "light-btn"
+    btn.className = 'light-btn';
     return;
   }
   btn.innerText = 'Stop Recording';
-  btn.className = "teal-btn"
+  btn.className = 'teal-btn';
   if (recordingState.isRecordingOwner) {
     btn.disabled = false;
   } else {
@@ -183,7 +183,7 @@ function getReactionRecordingLayout(emoji) {
       return null;
   }
 
-  // Randomize some display parameters to 
+  // Randomize some display parameters to
   // make each new reaction look distinct,
   // allowing for satisfying "reaction spam"
   const imageHeight = rand(2, 5);
