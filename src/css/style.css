@@ -6,44 +6,17 @@
     --teal: #1BEBB9;
     --teal-dark: #0ce2b0;
 
+    --blue: rgb(142, 219, 255);
+
+    --dark: rgb(22, 22, 24);
+    --dark-muted: rgb(86, 86, 92);
+
+    --light: rgb(255,255,255);
+    --light-muted: rgb(145, 145, 145);
+
 }
 body {
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-}
-
-
-form {
-    margin-bottom: 10px;
-    margin-bottom: 10px;
-    display: flex;
-    flex-direction: column;
-}
-
-input {
-    padding: 7px;
-    border-radius: 3px;
-    border-color: var(--orange);
-    width: 210px;
-}
-
-button {
-    background-color: var(--orange);
-    border-color: var(--orange-dark);
-    color: #121a24;
-    padding: 7px;
-    border-radius: 3px;
-    margin-top: 4px;
-}
-
-button:hover {
-    background-color: var(--orange-dark);
-    cursor: pointer;
-}
-
-button:disabled {
-    background-color: #1f2d3d;
-    color: #c8d1dc;
-    border: 1px solid #c8d1dc;
 }
 
 #container {
@@ -53,33 +26,42 @@ button:disabled {
     align-items: center;
 }
 
-#incall {
+/* Lobby */
+
+.lobby {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 50%;
+}
+
+.lobby a {
+    color: var(--orange-dark);
+    text-decoration: none;
+}
+
+.lobby a:hover:enabled {
+    text-decoration: underline;
+}
+
+
+/* In-call */
+
+.incall {
     display: flex;
     flex-direction: column;
 }
 
-#incall button:not(#leave) {
-    background-color: var(--teal);
-    border-color: var(--teal-dark);
-}
-
-#incall button:hover:not(#leave) {
-    background-color: var(--teal-dark);
-}
-
-#incall input {
-    border-color: var(--teal);
-}
-
-
 #callContainer {
     display: flex;
     flex-direction: row;
+    max-width: 900px;
 }
 
 #participants {
     display: flex;
     flex-wrap: wrap;
+    justify-content: flex-end;
 }
 
 #controls {
@@ -91,21 +73,10 @@ button:disabled {
     padding: 0 2px 0 2px;
 }
 
-#controls button {
-    margin: 0 2px 0 2px;
-}
-
 #participants .participant {
     width: 300px;
     height: 180px;
     background-color: var(--teal);
-}
-
-#chat {
-    margin-left: 14px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
 }
 
 video {
@@ -113,6 +84,124 @@ video {
     height: 100%;
 }
 
+/* Chat */
+
+#chat {
+    margin-left: 14px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 200px;
+}
+
+#messages {
+    height: 250px;
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    border: 1px solid var(--teal-dark);
+    padding: 5px;
+    border-radius: 8px;
+    margin-bottom: 8px;
+}
+
+.chatName {
+    color: var(--orange);
+}
+
+/* Form and button styling */
+
+form {
+    margin-bottom: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+input,textarea {
+    padding: 7px;
+    border-color: var(--orange);
+    width: 180px;
+    border-radius: 6px;
+    font-size: 1.2em;
+    margin-bottom: 8px;
+}
+
+#chat textarea {
+    font-size: 1em;
+    height: 40px;
+}
+
+form button {
+    font-size: 1.2em;
+    width: 100px;
+}
+
+.dark-btn {
+  background-color: var(--dark);
+  border-color: var(--dark);
+  border-radius: 30px;
+  border-width: 1px;
+  color: var(--light);
+  transition: 0.5s;
+  padding: 8px;
+}
+
+.dark-btn:hover:enabled {
+    background-color: var(--light);
+    color: var(--dark);
+    cursor: pointer;
+}
+
+.light-btn {
+    background-color: var(--light);
+    border-color: var(--dark);
+    border-radius: 30px;
+    border-width: 1px;
+    color: var(--dark);
+    transition: 0.5s;
+    padding: 8px;
+  }
+  
+  .light-btn:hover:enabled {
+      background-color: var(--dark);
+      color: var(--light);
+      cursor: pointer;
+  }
+
+  .teal-btn {
+    background-color: var(--teal);
+    border-color: var(--dark);
+    border-radius: 30px;
+    border-width: 1px;
+    color: var(--dark);
+    transition: 0.5s;
+    padding: 8px;
+  }
+
+  .teal-btn:hover:enabled {
+    background-color: var(--light);
+    cursor: pointer;
+}
+
+#incall #leave:hover:enabled {
+    background-color: var(--orange);
+}
+
+#incall input {
+    border-color: var(--teal);
+}
+
+#send:hover {
+    background-color: var(--teal);
+}
+
+#controls button {
+    margin: 0 2px 0 2px;
+}
 
 #reactions button {
     font-size: 1.5em;
@@ -122,8 +211,14 @@ video {
     position: absolute;
     font-size: 5em;
     transition: opacity 1s ease;
+    opacity: 0;
 }
 
 .hidden {
-    display: none !important;
+    display: none;
+}
+button:disabled {
+    background-color: var(--dark-muted);
+    color: var(--light-muted);
+    border: 1px solid var(--dark-muted);
 }

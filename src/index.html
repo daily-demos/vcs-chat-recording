@@ -58,19 +58,22 @@
       <span>Daily chat + reaction recording with VCS</span><span>powered by <a href="https://docs.daily.co">//daily</a></span>
     </div>
     <div id="container">
-        <div id="lobby">
+        <div id="lobby" class="lobby">
+            <h1>Daily chat + reaction recording with VCS</h1>
+            <p>This demo uses <a href="">Daily's Client SDK for JavaScript</a> and <a href="">Daily's Video Component System</a> to embed chat and emoji reaction elements into a cloud recording.</a></p>
+            <p>To use it, specify a Daily room with <a href="">cloud recording enabled</a></p>
             <form id="joinForm">
-              Room URL: <input type="url" id="url" required />
-              Your name: <input type="text" id="name" maxlength="10" required />
-              <button type="submit">Join</button>
+              <input type="url" id="url" placeholder="Daily room URL" required />
+              <input type="text" id="name" placeholder="Your name" maxlength="10" required />
+              <button type="submit" class="dark-btn">Join</button>
             </form>
         </div>
-        <div id="incall" class="hidden">
+        <div id="incall" class="hidden incall">
           <div id="controls">
-            <button id="mic" disabled>Toggle Microphone</button>
-            <button id="cam" disabled>Toggle Camera</button>
-            <button id="record" disabled>Start Recording</button>
-            <button id="leave" disabled>Leave</button>
+            <button id="mic" disabled class="light-btn">Toggle Microphone</button>
+            <button id="cam" disabled class="light-btn">Toggle Camera</button>
+            <button id="record" disabled class="light-btn">Start Recording</button>
+            <button id="leave" disabled class="dark-btn">Leave</button>
           </div>
           <div id="callContainer">
           <div id="participants"></div>
@@ -78,14 +81,14 @@
             <div id="messages">
             </div>
             <form id="chatForm">
-              <input type="text" id="chatmessage" required />
-              <button id="send" type="submit">Send</button>
+              <textarea id="chatmessage" autocomplete="off" required></textarea>
+              <button id="send" type="submit" class="light-btn">Send</button>
             </form>
             <div id="reactions">
-              <button id="thumbsup">👍</button>
-              <button id="thumbsdown">👎</button>
-              <button id="heart">❤️</button>
-              <button id="boo">🎃</button>
+              <button id="thumbsup" class="light-btn">👍</button>
+              <button id="thumbsdown" class="light-btn">👎</button>
+              <button id="heart" class="light-btn">❤️</button>
+              <button id="boo" class="light-btn">🎃</button>
             </div>
           </div>
           </div>

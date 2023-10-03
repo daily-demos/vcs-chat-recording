@@ -31,7 +31,6 @@ window.addEventListener('DOMContentLoaded', () => {
 function setupCallObject() {
   const callObject = window.DailyIframe.createCallObject();
 
-  const participantParentEle = document.getElementById('participants');
 
   // Set up relevant event handlers
   callObject
@@ -40,7 +39,7 @@ function setupCallObject() {
       // set up their call controls and add their video
       // element to the DOM.
       const p = e.participants.local;
-      addParticipantEle(e.participants.local, participantParentEle);
+      addParticipantEle(e.participants.local);
       updateMedia(p);
       showInCall();
       enableControls(callObject);
@@ -73,7 +72,7 @@ function setupCallObject() {
     .on('participant-joined', (e) => {
       // When a remote participant joins, add their
       // video and audio to the DOM.
-      addParticipantEle(e.participant, participantParentEle);
+      addParticipantEle(e.participant);
     })
     .on('participant-left', (e) => {
       // When a remote participant joins, removec their
@@ -96,7 +95,8 @@ function setupCallObject() {
     })
     .on('app-message', (e) => {
       const { data } = e;
-      console.log('got app message:', e);
+      // If the event contains a chat payload,
+      // Show a new chat message and _possibly_ update the recording
       if (data.kind === 'chat') {
         const { msg } = data;
         const senderID = e.fromId;
@@ -110,6 +110,8 @@ function setupCallObject() {
         });
         return;
       }
+      // If the event contains an emoji reaction payload,
+      // Show a new chat message and _possibly_ update the recording
       if (data.kind === 'emoji') {
         const { emoji } = data;
         showReaction(emoji);

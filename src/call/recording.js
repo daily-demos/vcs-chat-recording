@@ -1,6 +1,14 @@
+/*
+ * This file is responsible for all recording operations.
+ * This includes starting/stopping the recording,
+ * managing "Record" button state,
+ * and updating VCS text and image overlays for chat and emojis.
+ */
+
+import rand from "./util.js";
+
 const visibleMessages = [];
 let reactionTimeout;
-let toastKey = 0;
 
 /**
  * Reflects recording state, such as whether
@@ -66,9 +74,11 @@ export function updateRecordBtn(recordingInProgress) {
   if (!recordingInProgress) {
     btn.innerText = 'Start Recording';
     btn.disabled = false;
+    btn.className = "light-btn"
     return;
   }
   btn.innerText = 'Stop Recording';
+  btn.className = "teal-btn"
   if (recordingState.isRecordingOwner) {
     btn.disabled = false;
   } else {
@@ -127,6 +137,7 @@ function getChatRecordingLayout(name, chatMsg) {
   while (visibleMessages.length > maxDisplayed) {
     visibleMessages.shift();
   }
+  // Specify VCS text overlay options
   const vcsLayout = {
     preset: 'custom',
     composition_params: {
@@ -172,9 +183,11 @@ function getReactionRecordingLayout(emoji) {
       return null;
   }
 
+  // Randomize some display parameters to 
+  // make each new reaction look distinct,
+  // allowing for satisfying "reaction spam"
   const imageHeight = rand(2, 5);
   const imageOpacity = rand(5, 10) / 10;
-  toastKey += 1;
   const vcsLayout = {
     preset: 'custom',
     composition_params: {
@@ -200,8 +213,4 @@ function getClearReactionLayout() {
 
 function getRecordBtn() {
   return document.getElementById('record');
-}
-
-function rand(min, max) {
-  return Math.floor(Math.random() * (max - min + 1) + min);
 }

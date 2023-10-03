@@ -1,3 +1,8 @@
+/*
+ * All primary call operations are defined in this file.
+ */
+
+
 const hiddenClassName = 'hidden';
 
 /**
@@ -15,7 +20,7 @@ export function setupJoinForm(callObject) {
 
     const inputs = joinForm.getElementsByTagName('input');
     const roomURLInput = inputs[0];
-    const nameInput = inputs[0];
+    const nameInput = inputs[1];
  
     try {
       callObject.join({ 
@@ -218,11 +223,20 @@ function getParticipantTracks(participant) {
   return mediaTracks;
 }
 
-export function addParticipantEle(participant, parentEle) {
+/**
+ * Adds a participant to the DOM
+ * @param {DailyParticipant} participant 
+ * @returns 
+ */
+export function addParticipantEle(participant) {
+  // Retrieve parent to which the participant will be attached.
+  const participantsEle = document.getElementById('participants');
+
+  // Create new participant element
   const participantEle = document.createElement('div');
   participantEle.id = getParticipantEleID(participant.session_id);
   participantEle.className = 'participant';
-  parentEle.appendChild(participantEle);
+  participantsEle.appendChild(participantEle);
 
   // Add video tag
   const video = document.createElement('video');
@@ -241,12 +255,19 @@ export function addParticipantEle(participant, parentEle) {
   participantEle.appendChild(audio);
 }
 
+/**
+ * Removes a participant from the DOM
+ * @param {string} sessionID 
+ */
 export function removeParticipantEle(sessionID) {
   const participantEle = getParticipantEle(sessionID);
   removeMedia(participantEle);
   participantEle.remove();
 }
 
+/**
+ * Removes all participant elements from the DOM
+ */
 export function removeAllParticipantEles() {
   const participantsContainer = document.getElementById('participants');
   const participants =
@@ -258,10 +279,18 @@ export function removeAllParticipantEles() {
   }
 }
 
+/**
+ * Retrievecs a participant element, if one exists.
+ * @param {string}} sessionID 
+ * @returns 
+ */
 export function getParticipantEle(sessionID) {
   return document.getElementById(getParticipantEleID(sessionID));
 }
 
+/**
+ * Shows the in-call view (and hides lobby)
+ */
 export function showInCall() {
   // Hide in-call UI and disable call controls
   const inCall = getInCallEle();
@@ -274,6 +303,24 @@ export function showInCall() {
 
 export function getInCallEle() {
   return document.getElementById('incall');
+}
+
+export function getCallContainerEle() {
+  return document.getElementById('callContainer');
+}
+
+/**
+ * Cleanly removes all media within the given parent.
+ * @param {HTMLElement} parentEle 
+ */
+function removeMedia(parentEle) {
+  const videoTag = parentEle.getElementsByTagName('video')[0];
+  videoTag.srcObject = null;
+
+  const audioTags = parentEle.getElementsByTagName('audio');
+  if (audioTags && audioTags.length > 0) {
+    audioTags[0].srcObject = null;
+  }
 }
 
 function getMicBtn() {
@@ -294,16 +341,6 @@ function getJoinForm() {
 
 function getLobbyEle() {
   return document.getElementById('lobby');
-}
-
-function removeMedia(parentEle) {
-  const videoTag = parentEle.getElementsByTagName('video')[0];
-  videoTag.srcObject = null;
-
-  const audioTags = parentEle.getElementsByTagName('audio');
-  if (audioTags && audioTags.length > 0) {
-    audioTags[0].srcObject = null;
-  }
 }
 
 function getParticipantEleID(sessionID) {
