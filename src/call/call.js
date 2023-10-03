@@ -1,5 +1,9 @@
 const hiddenClassName = 'hidden';
 
+/**
+ * Configures the join form
+ * @param {DailyCall} callObject 
+ */
 export function setupJoinForm(callObject) {
   const joinForm = getJoinForm();
   joinForm.onsubmit = (ev) => {
@@ -9,22 +13,39 @@ export function setupJoinForm(callObject) {
     const btn = joinForm.getElementsByTagName('button')[0];
     btn.disabled = true;
 
-    const roomURLInput = joinForm.getElementsByTagName('input')[0];
+    const inputs = joinForm.getElementsByTagName('input');
+    const roomURLInput = inputs[0];
+    const nameInput = inputs[0];
+ 
     try {
-      callObject.join({ url: roomURLInput.value });
+      callObject.join({ 
+        url: roomURLInput.value,
+        userName: nameInput.value,
+      });
     } catch (e) {
       console.error('Failed to join Daily room', e);
-      enableJoinForm();
+      showLobby();
     }
   };
 }
 
-export function enableJoinForm() {
+/**
+ * Enables the join form
+ */
+export function showLobby() {
+  const inCall = getInCallEle();
+  inCall.classList.add(hiddenClassName);
+
   const joinForm = getJoinForm();
   const btn = joinForm.getElementsByTagName('button')[0];
   btn.disabled = false;
+  lobby.classList.remove(hiddenClassName);
 }
 
+/**
+ * Configures the microphone toggle button
+ * @param {DailyCall} callObject 
+ */
 export function setupMicToggle(callObject) {
   const btn = getMicBtn();
   btn.onclick = () => {
@@ -33,6 +54,10 @@ export function setupMicToggle(callObject) {
   };
 }
 
+/**
+ * Updates the mic button label to reflect accurate mic state
+ * @param {bool} isOn 
+ */
 export function updateMicLabel(isOn) {
   const btn = getMicBtn();
   if (isOn) {
@@ -42,6 +67,22 @@ export function updateMicLabel(isOn) {
   }
 }
 
+/**
+ * Configures the camera toggle button
+ * @param {DailyCall} callObject 
+ */
+export function setupCamToggle(callObject) {
+  const btn = getCamBtn();
+  btn.onclick = () => {
+    const camOn = callObject.localVideo();
+    callObject.setLocalVideo(!camOn);
+  };
+}
+
+/**
+ * Updates the cam button to reflect accurate cam state
+ * @param {bool} isOn 
+ */
 export function updateCamLabel(isOn) {
   const btn = getCamBtn();
   if (isOn) {
@@ -51,14 +92,10 @@ export function updateCamLabel(isOn) {
   }
 }
 
-export function setupCamToggle(callObject) {
-  const btn = getCamBtn();
-  btn.onclick = () => {
-    const camOn = callObject.localVideo();
-    callObject.setLocalVideo(!camOn);
-  };
-}
-
+/**
+ * Sets up the Leave button
+ * @param {DailyCall} callObject 
+ */
 export function setupLeave(callObject) {
   const btn = getLeaveBtn();
   btn.onclick = () => {
@@ -66,11 +103,15 @@ export function setupLeave(callObject) {
   };
 }
 
+/**
+ * Enables in-call controls
+ * @param {DailyCall} callObject 
+ */
 export function enableControls(callObject) {
   setupMicToggle(callObject);
   setupCamToggle(callObject);
   setupLeave(callObject);
-  const incallEle = document.getElementById('incall');
+  const incallEle = getInCallEle();
   const allButtons = incallEle.getElementsByTagName('button');
   for (let i = 0; i < allButtons.length; i += 1) {
     const btn = allButtons[i];
@@ -78,16 +119,23 @@ export function enableControls(callObject) {
   }
 }
 
-export function disableControls() {
-  const incallEle = document.getElementById('incall');
+/**
+ * Disables in-call controls
+ */
+export function disableCallControls() {
+  const incallEle = getInCallEle();
   const allButtons = incallEle.getElementsByTagName('button');
   for (let i = 0; i < allButtons.length; i += 1) {
     const btn = allButtons[i];
     btn.disabled = true;
   }
-  enableJoinForm();
 }
 
+/**
+ * Updates a participant's media elements
+ * @param {DailyParticipant} participant 
+ * @returns 
+ */
 export function updateMedia(participant) {
   const participantEle = getParticipantEle(participant.session_id);
   if (!participantEle) return;
@@ -109,6 +157,14 @@ function tryUpdateAudio(newTrack, parentEle) {
   maybeUpdateTrack(newTrack, parentEle, 'audio');
 }
 
+/**
+ * Updates the participant's media element with the
+ * given track if needed.
+ * @param {MediaStreamTrack} newTrack 
+ * @param {HTMLElement} parentEle 
+ * @param {"video" | "audio"} trackKind 
+ * @returns 
+ */
 function maybeUpdateTrack(newTrack, parentEle, trackKind) {
   const mediaEles = parentEle.getElementsByTagName(trackKind);
   if (!mediaEles || mediaEles.length === 0) return;
@@ -128,6 +184,11 @@ function maybeUpdateTrack(newTrack, parentEle, trackKind) {
   }
 }
 
+/**
+ * Retrieves a participant's playable tracks
+ * @param {DailyParticipant} participant 
+ * @returns 
+ */
 function getParticipantTracks(participant) {
   const mediaTracks = {
     videoTrack: null,
@@ -201,18 +262,18 @@ export function getParticipantEle(sessionID) {
   return document.getElementById(getParticipantEleID(sessionID));
 }
 
-export function showCallContainer() {
-  const cc = getCallContainer();
-  cc.classList.remove(hiddenClassName);
+export function showInCall() {
+  // Hide in-call UI and disable call controls
+  const inCall = getInCallEle();
+  inCall.classList.remove(hiddenClassName);
+  disableCallControls();
+
+  const lobby = getLobbyEle();
+  lobby.classList.add(hiddenClassName);
 }
 
-export function hideCallContainer() {
-  const cc = getCallContainer();
-  cc.classList.add(hiddenClassName);
-}
-
-export function getCallContainer() {
-  return document.getElementById('callcontainer');
+export function getInCallEle() {
+  return document.getElementById('incall');
 }
 
 function getMicBtn() {
@@ -228,7 +289,11 @@ function getLeaveBtn() {
 }
 
 function getJoinForm() {
-  return document.getElementById('join');
+  return document.getElementById('joinForm');
+}
+
+function getLobbyEle() {
+  return document.getElementById('lobby');
 }
 
 function removeMedia(parentEle) {

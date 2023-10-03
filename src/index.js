@@ -1,13 +1,12 @@
 import {
   addParticipantEle,
-  disableControls,
+  disableCallControls,
   enableControls,
-  enableJoinForm,
-  hideCallContainer,
+  showLobby,
   removeAllParticipantEles,
   removeParticipantEle,
   setupJoinForm,
-  showCallContainer,
+  showInCall,
   updateCamLabel,
   updateMedia,
   updateMicLabel,
@@ -43,7 +42,7 @@ function setupCallObject() {
       const p = e.participants.local;
       addParticipantEle(e.participants.local, participantParentEle);
       updateMedia(p);
-      showCallContainer();
+      showInCall();
       enableControls(callObject);
       setupChatForm(callObject, updateRecording);
       setupRecordToggle(callObject);
@@ -52,8 +51,8 @@ function setupCallObject() {
       // When the local participant leaves the call,
       // disable their call controls and remove
       // all media elements from the DOM.
-      disableControls();
-      hideCallContainer();
+      disableCallControls();
+      showLobby();
       removeAllParticipantEles();
     })
     .on('recording-started', () => {
@@ -90,7 +89,7 @@ function setupCallObject() {
       // If an unrecoverable error is received,
       // allow user to try to re-join the call.
       console.error('An unrecoverable error occurred: ', e);
-      enableJoinForm();
+      showLobby();
     })
     .on('nonfatal-error', (e) => {
       console.error('A nonfatal error occurred', e);

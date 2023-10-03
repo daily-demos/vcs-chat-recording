@@ -1,10 +1,19 @@
 const visibleMessages = [];
 let reactionTimeout;
+let toastKey = 0;
 
+/**
+ * Reflects recording state, such as whether
+ * the local participant is the owner of an ongoing recording
+ */
 export const recordingState = {
   isRecordingOwner: false,
 };
 
+/**
+ * Sets up the Record button to toggle recording on/off.
+ * @param {DailyCall} callObject 
+ */
 export function setupRecordToggle(callObject) {
   const btn = getRecordBtn();
   btn.onclick = () => {
@@ -114,7 +123,7 @@ export function updateRecording(callObject, data) {
 function getChatRecordingLayout(name, chatMsg) {
   const chatLine = `${name}: ${chatMsg}`;
   visibleMessages.push(chatLine);
-  const maxDisplayed = 5;
+  const maxDisplayed = 15;
   while (visibleMessages.length > maxDisplayed) {
     visibleMessages.shift();
   }
@@ -126,7 +135,7 @@ function getChatRecordingLayout(name, chatMsg) {
       'text.align_vertical': 'bottom',
       'text.offset_x_gu': -1,
       'text.offset_y_gu': 0.5,
-      'text.fontSize_gu': 1.2,
+      'text.fontSize_gu': 1,
       'text.fontFamily': 'Exo',
       'text.color': 'rgba(255, 255, 255, 0.95)',
       'videoSettings.showParticipantLabels': false,
@@ -163,8 +172,9 @@ function getReactionRecordingLayout(emoji) {
       return null;
   }
 
-  const imageHeight = rand(1, 5);
+  const imageHeight = rand(2, 5);
   const imageOpacity = rand(5, 10) / 10;
+  toastKey += 1;
   const vcsLayout = {
     preset: 'custom',
     composition_params: {

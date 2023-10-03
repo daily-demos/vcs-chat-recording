@@ -1,4 +1,4 @@
-import { getCallContainer } from './call.js';
+import { getInCallEle } from './call.js';
 
 export function setupChatForm(callObject, updateRecording) {
   setupEmojiReactions(callObject, updateRecording);
@@ -44,7 +44,7 @@ export function showReaction(emoji) {
   const ele = document.createElement('div');
   ele.innerText = emoji;
   ele.className = 'reaction';
-  const container = getCallContainer();
+  const container = getInCallEle();
   container.append(ele);
 
   setTimeout(() => {

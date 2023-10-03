@@ -4,9 +4,52 @@
     <title>Daily chat + reaction recording with VCS</title>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="./style.css" rel="stylesheet" />  
+    <link href="./css/style.css" rel="stylesheet" type="text/css" />  
+    <link href="./css/header.css" rel="stylesheet" type="text/css" />
 </head>
   <body>
+    <header>
+      <div class="header-container">
+        <div class="left-header">
+          <img
+            src="./assets/daily.svg"
+            class="daily-logo"
+            alt="Daily logo reads Daily"
+          />
+          <strong>
+            <p class="header-title">Daily chat + reaction recording with VCS</p>
+          </strong>
+        </div>
+        <div class="right-header">
+          <a
+            href="https://docs.daily.co/reference"
+            target="_blank"
+            class="link"
+          >
+            <button class="button docs-button white-button">
+              API docs
+              <img
+                class="arrow-icon"
+                src="./assets/new-tab-icon.png"
+                alt="Arrow icon points up and to the right"
+                aria-hidden="true"
+              />
+            </button>
+          </a>
+          <span class="divider"></span>
+          <a
+            href="https://github.com/daily-demos/boilerplate-vanilla-js/"
+            target="_blank"
+          >
+            <img
+              class="octocat"
+              src="./assets/github.png"
+              alt="GitHub logo Octocat"
+            />
+          </a>
+        </div>
+      </div>
+    </header>
     <noscript>
         This application requires JavaScript to run. Please enable JavaScript in
         your browser.
@@ -15,23 +58,24 @@
       <span>Daily chat + reaction recording with VCS</span><span>powered by <a href="https://docs.daily.co">//daily</a></span>
     </div>
     <div id="container">
-        <div id="controls">
-            <form id="join">
+        <div id="lobby">
+            <form id="joinForm">
               Room URL: <input type="url" id="url" required />
+              Your name: <input type="text" id="name" maxlength="10" required />
               <button type="submit">Join</button>
             </form>
-            <div id="incall">
-              <button id="mic" disabled>Toggle Microphone</button>
-              <button id="cam" disabled>Toggle Camera</button>
-              <button id="record" disabled>Start Recording</button>
-              <button id="leave" disabled>Leave</button>
-            </div>
         </div>
-        <div id="callcontainer" class="hidden">
+        <div id="incall" class="hidden">
+          <div id="controls">
+            <button id="mic" disabled>Toggle Microphone</button>
+            <button id="cam" disabled>Toggle Camera</button>
+            <button id="record" disabled>Start Recording</button>
+            <button id="leave" disabled>Leave</button>
+          </div>
+          <div id="callContainer">
           <div id="participants"></div>
           <div id="chat">
             <div id="messages">
-              
             </div>
             <form id="chatForm">
               <input type="text" id="chatmessage" required />
@@ -43,6 +87,7 @@
               <button id="heart">❤️</button>
               <button id="boo">🎃</button>
             </div>
+          </div>
           </div>
         </div>  
     </div>

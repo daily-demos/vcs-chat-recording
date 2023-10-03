@@ -1,0 +1,129 @@
+/* End header styles */
+:root {
+    --orange: #FF6E4A;
+    --orange-dark: #f25c37;
+
+    --teal: #1BEBB9;
+    --teal-dark: #0ce2b0;
+
+}
+body {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+
+form {
+    margin-bottom: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+input {
+    padding: 7px;
+    border-radius: 3px;
+    border-color: var(--orange);
+    width: 210px;
+}
+
+button {
+    background-color: var(--orange);
+    border-color: var(--orange-dark);
+    color: #121a24;
+    padding: 7px;
+    border-radius: 3px;
+    margin-top: 4px;
+}
+
+button:hover {
+    background-color: var(--orange-dark);
+    cursor: pointer;
+}
+
+button:disabled {
+    background-color: #1f2d3d;
+    color: #c8d1dc;
+    border: 1px solid #c8d1dc;
+}
+
+#container {
+    margin-top: 52px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#incall {
+    display: flex;
+    flex-direction: column;
+}
+
+#incall button:not(#leave) {
+    background-color: var(--teal);
+    border-color: var(--teal-dark);
+}
+
+#incall button:hover:not(#leave) {
+    background-color: var(--teal-dark);
+}
+
+#incall input {
+    border-color: var(--teal);
+}
+
+
+#callContainer {
+    display: flex;
+    flex-direction: row;
+}
+
+#participants {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#controls {
+    margin-bottom: 25px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 0 2px 0 2px;
+}
+
+#controls button {
+    margin: 0 2px 0 2px;
+}
+
+#participants .participant {
+    width: 300px;
+    height: 180px;
+    background-color: var(--teal);
+}
+
+#chat {
+    margin-left: 14px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+video {
+    width: 100%;
+    height: 100%;
+}
+
+
+#reactions button {
+    font-size: 1.5em;
+}
+
+.reaction {
+    position: absolute;
+    font-size: 5em;
+    transition: opacity 1s ease;
+}
+
+.hidden {
+    display: none !important;
+}
