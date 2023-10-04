@@ -93,7 +93,7 @@ export function updateRecordBtn(recordingInProgress) {
  * @param {*} data
  * @returns
  */
-export function updateRecording(callObject, data) {
+export function maybeUpdateRecording(callObject, data) {
   // If this local participant is not the owner of the recording,
   // do nothing.
   if (!recordingState.isRecordingOwner) return;

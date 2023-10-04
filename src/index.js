@@ -15,7 +15,7 @@ import { addChatMsg, setupChatForm, showReaction } from './call/chat.js';
 import {
   setupRecordToggle,
   updateRecordBtn,
-  updateRecording,
+  maybeUpdateRecording,
 } from './call/recording.js';
 
 window.addEventListener('DOMContentLoaded', () => {
@@ -42,7 +42,7 @@ function setupCallObject() {
       updateMedia(p);
       showInCall();
       enableControls(callObject);
-      setupChatForm(callObject, updateRecording);
+      setupChatForm(callObject, maybeUpdateRecording);
       setupRecordToggle(callObject);
     })
     .on('left-meeting', () => {
@@ -102,7 +102,7 @@ function setupCallObject() {
         const sender = callObject.participants()[senderID];
         const name = sender?.user_name || 'Guest';
         addChatMsg(name, msg);
-        updateRecording(callObject, {
+        maybeUpdateRecording(callObject, {
           kind: 'chat',
           name,
           msg,
@@ -114,7 +114,7 @@ function setupCallObject() {
       if (data.kind === 'emoji') {
         const { emoji } = data;
         showReaction(emoji);
-        updateRecording(callObject, {
+        maybeUpdateRecording(callObject, {
           kind: 'emoji',
           emoji,
         });
