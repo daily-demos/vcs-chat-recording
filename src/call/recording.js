@@ -35,10 +35,6 @@ export function setupRecordToggle(callObject) {
       callObject.stopRecording();
     }
     recordingState.isRecordingOwner = !isRecording;
-
-    callObject.setMeetingSessionData({
-      isRecording: !isRecording,
-    });
   };
 }
 
