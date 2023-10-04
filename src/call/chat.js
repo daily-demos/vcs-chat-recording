@@ -9,10 +9,10 @@ import rand from './util.js';
 /**
  * Sets up the in-call chat form, including relevant handlers.s
  * @param {DailyCall} callObject
- * @param {func(DailyCall, {})} updateRecording
+ * @param {func(DailyCall, {})} maybeUpdateRecording
  */
-export function setupChatForm(callObject, updateRecording) {
-  setupEmojiReactions(callObject, updateRecording);
+export function setupChatForm(callObject, maybeUpdateRecording) {
+  setupEmojiReactions(callObject, maybeUpdateRecording);
 
   // Retrieve chat form and chat input element
   const chatForm = getChatForm();
@@ -26,17 +26,17 @@ export function setupChatForm(callObject, updateRecording) {
       const msg = chatInput.value;
       chatForm.reset();
 
-      // Deduce local participant's user name, if available
-      const name = callObject.participants().local.user_name || 'Guest';
-
       // Send retrieved chat message to all other participants
       callObject.sendAppMessage({ kind: 'chat', msg }, '*');
+
+      // Deduce local participant's user name, if available
+      const name = callObject.participants().local.user_name || 'Guest';
 
       // Display locally sent chat message
       addChatMsg(name, msg);
 
       // Invoke recording update callback with chat payload
-      updateRecording(callObject, {
+      maybeUpdateRecording(callObject, {
         kind: 'chat',
         name,
         msg,
@@ -108,9 +108,9 @@ export function showReaction(emoji) {
 /**
  * Sets up emoji reaction button handlers
  * @param {DailyCall} callObject
- * @param {func(DailyCall, {})} updateRecording
+ * @param {func(DailyCall, {})} maybeUpdateRecording
  */
-function setupEmojiReactions(callObject, updateRecording) {
+function setupEmojiReactions(callObject, maybeUpdateRecording) {
   // Retrieve all reaction buttons
   const reactionBtns = [
     document.getElementById('thumbsup'),
@@ -129,7 +129,7 @@ function setupEmojiReactions(callObject, updateRecording) {
       // update callback.
       callObject.sendAppMessage({ kind: 'emoji', emoji });
       showReaction(emoji);
-      updateRecording(callObject, { kind: 'emoji', emoji });
+      maybeUpdateRecording(callObject, { kind: 'emoji', emoji });
     };
   }
 }
