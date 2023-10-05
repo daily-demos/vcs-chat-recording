@@ -4,6 +4,7 @@ This demo shows developers how they can embed chat and emoji reaction components
 
 ## In-call view
 ![In-call view featuring chat and reactions](screenshot-app.png)
+*Emojis are rendered at randomized sizes and opacities to enable satisfying "emoji spam".*
 
 ## Recording view
 ![Recording view featuring chat and reactions](screenshot-recording.png)
