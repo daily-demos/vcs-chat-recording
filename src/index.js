@@ -54,9 +54,15 @@ function setupCallObject() {
       removeAllParticipantEles();
     })
     .on('recording-started', () => {
+      callObject.setMeetingSessionData({
+        isRecording: true,
+      });
       updateRecordBtn(true);
     })
     .on('recording-stopped', () => {
+      callObject.setMeetingSessionData({
+        isRecording: true,
+      });
       updateRecordBtn(false);
     })
     .on('participant-updated', (e) => {
