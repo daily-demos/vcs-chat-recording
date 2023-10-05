@@ -227,8 +227,8 @@ button:disabled {
 }
 
 .spinner {
-    border: 4px solid #f3f3f3; 
-    border-top: 4px solid #1bebb9;
+    border: 4px solid var(--light); 
+    border-top: 4px solid var(--teal);
     border-radius: 50%;
     width: 8px;
     height: 8px;
