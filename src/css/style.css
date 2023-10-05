@@ -1,10 +1,10 @@
 /* End header styles */
 :root {
-    --orange: #FF6E4A;
-    --orange-dark: #f25c37;
+    --orange: rgb(255,110,74);
+    --orange-dark: rgb(242,92,55);
 
-    --teal: #1BEBB9;
-    --teal-dark: #0ce2b0;
+    --teal: rgb(27,235,185);
+    --teal-dark: rgb(12,226,176);
 
     --blue: rgb(142, 219, 255);
 
@@ -44,6 +44,9 @@ body {
     text-decoration: underline;
 }
 
+label {
+    display: none;
+}
 
 /* In-call */
 
@@ -58,14 +61,8 @@ body {
     max-width: 900px;
 }
 
-#participants {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-end;
-}
-
 #controls {
-    margin-bottom: 25px;
+    margin-bottom: 24px;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -73,11 +70,16 @@ body {
     padding: 0 2px 0 2px;
 }
 
-#participants .participant {
-    width: 300px;
-    height: 180px;
-    background-color: var(--teal);
+#participants {
+    grid-gap: 16px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
 }
+  
+#participants .participant {
+    background-color: var(--teal);
+    aspect-ratio: 16/10;
+  }
 
 video {
     width: 100%;
@@ -87,7 +89,7 @@ video {
 /* Chat */
 
 #chat {
-    margin-left: 14px;
+    margin-left: 12px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -102,7 +104,7 @@ video {
     align-items: flex-start;
     width: 100%;
     border: 1px solid var(--teal-dark);
-    padding: 5px;
+    padding: 4px;
     border-radius: 8px;
     margin-bottom: 8px;
 }
@@ -114,8 +116,8 @@ video {
 /* Form and button styling */
 
 form {
-    margin-bottom: 10px;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
+    margin-bottom: 8px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -123,9 +125,9 @@ form {
 
 input,textarea {
     padding: 7px;
-    border-color: var(--orange);
+    border-color: var(--teal-dark);
     width: 180px;
-    border-radius: 6px;
+    border-radius: 8px;
     font-size: 1.2em;
     margin-bottom: 8px;
 }
@@ -141,13 +143,13 @@ form button {
 }
 
 .dark-btn {
-  background-color: var(--dark);
-  border-color: var(--dark);
-  border-radius: 30px;
-  border-width: 1px;
-  color: var(--light);
-  transition: 0.5s;
-  padding: 8px;
+    background-color: var(--dark);
+    border-color: var(--dark);
+    border-radius: 24px;
+    border-width: 1px;
+    color: var(--light);
+    transition: 0.5s;
+    padding: 8px;
 }
 
 .dark-btn:hover:enabled {
@@ -159,30 +161,30 @@ form button {
 .light-btn {
     background-color: var(--light);
     border-color: var(--dark);
-    border-radius: 30px;
+    border-radius: 28px;
     border-width: 1px;
     color: var(--dark);
     transition: 0.5s;
     padding: 8px;
-  }
-  
-  .light-btn:hover:enabled {
-      background-color: var(--dark);
-      color: var(--light);
-      cursor: pointer;
-  }
+}
 
-  .teal-btn {
+.light-btn:hover:enabled {
+    background-color: var(--dark);
+    color: var(--light);
+    cursor: pointer;
+}
+
+.teal-btn {
     background-color: var(--teal);
     border-color: var(--dark);
-    border-radius: 30px;
+    border-radius: 28px;
     border-width: 1px;
     color: var(--dark);
     transition: 0.5s;
     padding: 8px;
-  }
+}
 
-  .teal-btn:hover:enabled {
+.teal-btn:hover:enabled {
     background-color: var(--light);
     cursor: pointer;
 }
@@ -207,6 +209,12 @@ form button {
     font-size: 1.5em;
 }
 
+button:disabled {
+    background-color: var(--dark-muted);
+    color: var(--light-muted);
+    border: 1px solid var(--dark-muted);
+}
+
 .reaction {
     position: absolute;
     font-size: 5em;
@@ -216,9 +224,4 @@ form button {
 
 .hidden {
     display: none;
-}
-button:disabled {
-    background-color: var(--dark-muted);
-    color: var(--light-muted);
-    border: 1px solid var(--dark-muted);
 }
