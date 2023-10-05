@@ -124,7 +124,7 @@ function setupEmojiReactions(callObject, maybeUpdateRecording) {
     const btn = reactionBtns[i];
     btn.onclick = () => {
       const emoji = btn.innerText;
-      // Send reactoin to all other participants,
+      // Send reaction to all other participants,
       // then display it at the DOM and invoke recording
       // update callback.
       callObject.sendAppMessage({ kind: 'emoji', emoji });
@@ -132,6 +132,10 @@ function setupEmojiReactions(callObject, maybeUpdateRecording) {
       maybeUpdateRecording(callObject, { kind: 'emoji', emoji });
     };
   }
+}
+
+export function clearChat() {
+  getMessagesEle().innerText = '';
 }
 
 function getChatForm() {

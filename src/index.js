@@ -11,7 +11,12 @@ import {
   updateMedia,
   updateMicLabel,
 } from './call/call.js';
-import { addChatMsg, setupChatForm, showReaction } from './call/chat.js';
+import {
+  addChatMsg,
+  clearChat,
+  setupChatForm,
+  showReaction,
+} from './call/chat.js';
 import {
   setupRecordToggle,
   updateRecordBtn,
@@ -52,6 +57,7 @@ function setupCallObject() {
       disableCallControls();
       showLobby();
       removeAllParticipantEles();
+      clearChat();
     })
     .on('recording-started', () => {
       callObject.setMeetingSessionData({
@@ -61,7 +67,7 @@ function setupCallObject() {
     })
     .on('recording-stopped', () => {
       callObject.setMeetingSessionData({
-        isRecording: true,
+        isRecording: false,
       });
       updateRecordBtn(false);
     })

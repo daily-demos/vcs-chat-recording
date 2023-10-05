@@ -26,7 +26,7 @@ export function setupRecordToggle(callObject) {
   const btn = getRecordBtn();
   btn.onclick = () => {
     btn.disabled = true;
-
+    btn.appendChild(createSpinner());
     const state = callObject.meetingSessionState();
     const isRecording = state?.data?.isRecording;
     if (!isRecording) {
@@ -107,14 +107,12 @@ export function maybeUpdateRecording(callObject, data) {
       window.clearTimeout(reactionTimeout);
     }
     reactionTimeout = window.setTimeout(() => {
-      console.log('clearing reaction');
       callObject.updateRecording({ layout: getClearReactionLayout() });
     }, 1000);
   }
 
   // If a layout was found, update the recording with it.
   if (layout) {
-    console.log('updating recording');
     callObject.updateRecording({ layout });
   }
 }
@@ -209,4 +207,10 @@ function getClearReactionLayout() {
 
 function getRecordBtn() {
   return document.getElementById('record');
+}
+
+function createSpinner() {
+  const ele = document.createElement('div');
+  ele.className = 'spinner';
+  return ele;
 }
