@@ -4,18 +4,20 @@ This demo shows developers how they can embed chat and emoji reaction components
 
 ## In-call view
 ![In-call view featuring chat and reactions](screenshot-app.png)
-*Emojis are rendered at randomized sizes and opacities to enable satisfying "emoji spam".*
+*Emojis are rendered at varying sizes and opacities to enable satisfying "emoji spam".*
 
 ## Recording view
 ![Recording view featuring chat and reactions](screenshot-recording.png)
+*Recordings have chat and emoji reactions embedded in the bottom right and upper left corners respectively.*
 
 
 ## Running the demo locally
 
-You'll need a [free Daily account](https://dashboard.daily.co/u/signup) and [a Daily room](https://dashboard.daily.co/rooms/create) with cloud recording enabled on creation:
+You'll need a [Daily account](https://dashboard.daily.co/u/signup) and [a Daily room](https://dashboard.daily.co/rooms/create) with cloud recording enabled on creation:
 
 ![Option to enable cloud recording in the Daily room configuration](recording-enabled.png)
 
+(Note that cloud recording is a [pay-as-you-go feature with usage-based pricing](https://www.daily.co/pricing/).)
 
 Then, run the following commands in your terminal:
 
