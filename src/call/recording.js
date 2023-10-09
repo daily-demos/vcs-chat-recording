@@ -75,11 +75,7 @@ export function updateRecordBtn(recordingInProgress) {
   }
   btn.innerText = 'Stop Recording';
   btn.className = 'teal-btn';
-  if (recordingState.isRecordingOwner) {
-    btn.disabled = false;
-  } else {
-    btn.disabled = true;
-  }
+  btn.disabled = !recordingState.isRecordingOwner;
 }
 
 /**

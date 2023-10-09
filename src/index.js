@@ -107,7 +107,7 @@ function setupCallObject() {
     .on('app-message', (e) => {
       const { data } = e;
       // If the event contains a chat payload,
-      // Show a new chat message and _possibly_ update the recording 
+      // show a new chat message and _possibly_ update the recording
       // (which happens when the local participant is the recording owner)
       if (data.kind === 'chat') {
         const { msg } = data;
@@ -123,7 +123,7 @@ function setupCallObject() {
         return;
       }
       // If the event contains an emoji reaction payload,
-      // Show a new chat message and _possibly_ update the recording
+      // show a new chat message and _possibly_ update the recording
       // (which happens when the local participant is the recording owner)
       if (data.kind === 'emoji') {
         const { emoji } = data;
