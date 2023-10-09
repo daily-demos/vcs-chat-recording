@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Daily chat + reaction recording with VCS</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="./css/style.css" rel="stylesheet" type="text/css" />  
+    <link href="./css/header.css" rel="stylesheet" type="text/css" />
+</head>
+  <body>
+    <header>
+      <div class="header-container">
+        <div class="left-header">
+          <img
+            src="./assets/daily.svg"
+            class="daily-logo"
+            alt="Daily logo reads Daily"
+          />
+          <strong>
+            <p class="header-title">Daily chat + reaction recording with VCS</p>
+          </strong>
+        </div>
+        <div class="right-header">
+          <a
+            href="https://docs.daily.co/reference"
+            target="_blank"
+            class="link"
+          >
+            <button class="button docs-button white-button">
+              API docs
+              <img
+                class="arrow-icon"
+                src="./assets/new-tab-icon.png"
+                alt="Arrow icon points up and to the right"
+                aria-hidden="true"
+              />
+            </button>
+          </a>
+          <span class="divider"></span>
+          <a
+            href="http://github.com/daily-demos/vcs-chat-recording"
+            target="_blank"
+          >
+            <img
+              class="octocat"
+              src="./assets/github.png"
+              alt="GitHub logo Octocat"
+            />
+          </a>
+        </div>
+      </div>
+    </header>
+    <noscript>
+        This application requires JavaScript to run. Please enable JavaScript in
+        your browser.
+    </noscript>
+    <div id="container">
+        <div id="lobby" class="lobby">
+            <h1>Daily chat + reaction recording with VCS</h1>
+            <p>This demo uses <a href="https://docs.daily.co/reference/daily-js">Daily's Client SDK for JavaScript</a> and <a href="https://docs.daily.co/reference/vcs">Daily's Video Component System</a> to embed chat and emoji reaction elements into a cloud recording.</a></p>
+            <p>To use it, specify a Daily room with <a href="https://docs.daily.co/guides/products/live-streaming-recording/recording-calls-with-the-daily-api#cloud">cloud recording enabled</a>.</p>
+            <form id="joinForm">
+              <label for="url">Daily room URL</label>
+              <input type="url" id="url" placeholder="Daily room URL" required />
+              <label for="name">Name</label>
+              <input type="text" id="name" placeholder="Your name" maxlength="10" required />
+              <button type="submit" class="dark-btn">Join</button>
+            </form>
+        </div>
+        <div id="incall" class="hidden incall">
+          <div id="controls">
+            <button id="mic" disabled class="light-btn">Toggle Microphone</button>
+            <button id="cam" disabled class="light-btn">Toggle Camera</button>
+            <button id="record" disabled class="light-btn">Start Recording</button>
+            <button id="leave" disabled class="dark-btn">Leave</button>
+          </div>
+          <div id="callContainer">
+          <div id="participants"></div>
+          <div id="chat">
+            <div id="messages">
+            </div>
+            <form id="chatForm">
+              <textarea id="chatmessage" autocomplete="off" required></textarea>
+              <button id="send" type="submit" class="light-btn">Send</button>
+            </form>
+            <div id="reactions">
+              <button id="thumbsup" class="light-btn">👍</button>
+              <button id="thumbsdown" class="light-btn">👎</button>
+              <button id="heart" class="light-btn">❤️</button>
+              <button id="boo" class="light-btn">🎃</button>
+            </div>
+          </div>
+          </div>
+        </div>  
+    </div>
+    <script crossorigin src="https://unpkg.com/@daily-co/daily-js"></script>
+    <script type="module" src="./index.js"></script>
+  </body>
+</html>

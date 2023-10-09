@@ -1,0 +1,246 @@
+/* End header styles */
+:root {
+    --orange: rgb(255,110,74);
+    --orange-dark: rgb(242,92,55);
+
+    --teal: rgb(27,235,185);
+    --teal-dark: rgb(12,226,176);
+
+    --blue: rgb(142, 219, 255);
+
+    --dark: rgb(22, 22, 24);
+    --dark-muted: rgb(86, 86, 92);
+
+    --light: rgb(255,255,255);
+    --light-muted: rgb(145, 145, 145);
+
+}
+body {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+#container {
+    margin-top: 52px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Lobby */
+
+.lobby {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 50%;
+}
+
+.lobby a {
+    color: var(--orange-dark);
+    text-decoration: none;
+}
+
+.lobby a:hover:enabled {
+    text-decoration: underline;
+}
+
+label {
+    display: none;
+}
+
+/* In-call */
+
+.incall {
+    display: flex;
+    flex-direction: column;
+}
+
+#callContainer {
+    display: flex;
+    flex-direction: row;
+    max-width: 900px;
+}
+
+#controls {
+    margin: 20px 0;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 0 2px 0 2px;
+}
+
+#participants {
+    grid-gap: 16px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+}
+  
+#participants .participant {
+    background-color: var(--teal);
+    aspect-ratio: 16/10;
+  }
+
+video {
+    width: 100%;
+    height: 100%;
+}
+
+/* Chat */
+
+#chat {
+    margin-left: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 200px;
+}
+
+#messages {
+    height: 250px;
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    border: 1px solid var(--teal-dark);
+    padding: 4px;
+    border-radius: 8px;
+    margin-bottom: 8px;
+}
+
+.chatName {
+    color: var(--orange);
+}
+
+/* Form and button styling */
+
+form {
+    margin-bottom: 8px;
+    margin-bottom: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+input,textarea {
+    padding: 7px;
+    border-color: var(--teal-dark);
+    width: 180px;
+    border-radius: 8px;
+    font-size: 1.2em;
+    margin-bottom: 8px;
+}
+
+#chat textarea {
+    font-size: 1em;
+    height: 40px;
+}
+
+form button {
+    font-size: 1.2em;
+    width: 100px;
+}
+
+.dark-btn {
+    background-color: var(--dark);
+    border-color: var(--dark);
+    border-radius: 24px;
+    border-width: 1px;
+    color: var(--light);
+    transition: 0.5s;
+    padding: 8px;
+}
+
+.dark-btn:hover:enabled {
+    background-color: var(--light);
+    color: var(--dark);
+    cursor: pointer;
+}
+
+.light-btn {
+    background-color: var(--light);
+    border-color: var(--dark);
+    border-radius: 28px;
+    border-width: 1px;
+    color: var(--dark);
+    transition: 0.5s;
+    padding: 8px;
+}
+
+.light-btn:hover:enabled {
+    background-color: var(--dark);
+    color: var(--light);
+    cursor: pointer;
+}
+
+.teal-btn {
+    background-color: var(--teal);
+    border-color: var(--dark);
+    border-radius: 28px;
+    border-width: 1px;
+    color: var(--dark);
+    transition: 0.5s;
+    padding: 8px;
+}
+
+.teal-btn:hover:enabled {
+    background-color: var(--light);
+    cursor: pointer;
+}
+
+#incall #leave:hover:enabled {
+    background-color: var(--orange);
+}
+
+#incall input {
+    border-color: var(--teal);
+}
+
+#send:hover {
+    background-color: var(--teal);
+}
+
+#controls button {
+    margin: 0 2px 0 2px;
+}
+
+#reactions button {
+    font-size: 1.5em;
+}
+
+button:disabled {
+    background-color: var(--dark-muted);
+    color: var(--light-muted);
+    border: 1px solid var(--dark-muted);
+}
+
+#record {
+    display: flex;
+}
+
+.reaction {
+    position: absolute;
+    font-size: 5em;
+    transition: opacity 1s ease;
+    opacity: 0;
+}
+
+.spinner {
+    border: 4px solid var(--light); 
+    border-top: 4px solid var(--teal);
+    border-radius: 50%;
+    width: 8px;
+    height: 8px;
+    animation: spin 1s linear infinite;
+    margin-left: 4px;
+}
+  
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.hidden {
+    display: none;
+}
